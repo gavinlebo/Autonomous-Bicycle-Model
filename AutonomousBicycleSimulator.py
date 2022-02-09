@@ -49,11 +49,12 @@ class Bike(object):
             obstaclespresent = False
             for obstacle in obstacles:
                 if abs(math.atan2(-(waypoints[0].y - self.y), waypoints[0].x- self.x) - math.atan2(-(obstacle.y - self.y), obstacle.x- self.x)) < .70:
-                    obstaclespresent = True
-                    if math.atan2(-(waypoints[0].y - self.y), waypoints[0].x- self.x) > math.atan2(-(obstacle.y - self.y), obstacle.x- self.x):
-                        self.desiredtheta = math.atan2(-(waypoints[0].y - self.y), waypoints[0].x- self.x) + .70
-                    else:
-                        self.desiredtheta = math.atan2(-(waypoints[0].y - self.y), waypoints[0].x- self.x) - .70
+                    if distanceFUNC(self,obstacle) < distanceFUNC(self,waypoints[0]):
+                        obstaclespresent = True
+                        if math.atan2(-(waypoints[0].y - self.y), waypoints[0].x- self.x) > math.atan2(-(obstacle.y - self.y), obstacle.x- self.x):
+                            self.desiredtheta = math.atan2(-(waypoints[0].y - self.y), waypoints[0].x- self.x) + .70
+                        else:
+                            self.desiredtheta = math.atan2(-(waypoints[0].y - self.y), waypoints[0].x- self.x) - .70
             if not obstaclespresent:
                 self.desiredtheta = math.atan2(-(waypoints[0].y - self.y), waypoints[0].x- self.x)
     def update(self):
